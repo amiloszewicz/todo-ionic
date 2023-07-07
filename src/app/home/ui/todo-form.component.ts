@@ -12,7 +12,7 @@ import { Todo } from 'src/app/shared/interfaces/todo';
 @Component({
   selector: 'app-todo-form',
   template: `
-    <form [formGroup]="todoForm" (ngSubmit)="handleSubmit()">
+    <form [formGroup]="todoForm" (ngSubmit)="handleSubmit(true)">
       <ion-card>
         <ion-card-title>
           <ion-input
@@ -27,7 +27,15 @@ import { Todo } from 'src/app/shared/interfaces/todo';
             formControlName="description"
             placeholder="description..."
           ></ion-input>
-          <ion-button expand="full" type="submit">Add Todo</ion-button>
+          <ion-button expand="full" type="submit"> Add Todo </ion-button>
+          <ion-toast
+            [isOpen]="isToastOpen"
+            [duration]="5000"
+            (didDismiss)="setOpen(false)"
+            message="Todo added :)"
+            [buttons]="toastButtons"
+            color="primary"
+          ></ion-toast>
         </ion-card-content>
       </ion-card>
     </form>
@@ -46,15 +54,23 @@ import { Todo } from 'src/app/shared/interfaces/todo';
 })
 export class TodoFormComponent {
   @Output() todoSubmitted = new EventEmitter<Todo>();
+  isToastOpen = false;
 
   public todoForm = this.fb.group({
     title: ['', Validators.required],
     description: [''],
   });
 
+  toastButtons = [
+    {
+      text: 'Dismiss',
+      role: 'cancel',
+    },
+  ];
+
   constructor(private fb: FormBuilder) {}
 
-  handleSubmit() {
+  handleSubmit(isToastOpen: boolean) {
     const value = this.todoForm.value;
 
     if (this.todoForm.valid && value.title && value.description) {
@@ -64,9 +80,14 @@ export class TodoFormComponent {
         description: value.description as string,
       };
 
+      this.setOpen(isToastOpen);
       this.todoSubmitted.emit(todo);
       this.todoForm.reset();
     }
+  }
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 }
 @NgModule({
