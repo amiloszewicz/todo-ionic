@@ -65,6 +65,7 @@ export class TodoFormComponent {
       };
 
       this.todoSubmitted.emit(todo);
+      this.todoForm.reset();
     }
   }
 }
