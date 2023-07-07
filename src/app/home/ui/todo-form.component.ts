@@ -13,19 +13,35 @@ import { Todo } from 'src/app/shared/interfaces/todo';
   selector: 'app-todo-form',
   template: `
     <form [formGroup]="todoForm" (ngSubmit)="handleSubmit()">
-      <ion-input
-        type="text"
-        formControlName="title"
-        placeholder="title..."
-      ></ion-input>
-      <ion-input
-        type="text"
-        formControlName="description"
-        placeholder="description..."
-      ></ion-input>
-      <ion-button type="submit">Add Todo</ion-button>
+      <ion-card>
+        <ion-card-title>
+          <ion-input
+            type="text"
+            formControlName="title"
+            placeholder="title..."
+          ></ion-input>
+        </ion-card-title>
+        <ion-card-content>
+          <ion-input
+            type="text"
+            formControlName="description"
+            placeholder="description..."
+          ></ion-input>
+          <ion-button expand="full" type="submit">Add Todo</ion-button>
+        </ion-card-content>
+      </ion-card>
     </form>
   `,
+  styles: [
+    `
+      ion-card-title {
+        padding-left: 20px;
+      }
+      ion-card-content {
+        padding-top: 0;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoFormComponent {
