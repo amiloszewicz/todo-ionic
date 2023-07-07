@@ -17,7 +17,12 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
     <ion-content>
       <app-todo-form (todoSubmitted)="createTodo($event)"></app-todo-form>
       <ion-list>
-        <ion-item *ngFor="let todo of todoService.todos$ | async">
+        <ion-item
+          *ngFor="let todo of todoService.todos$ | async"
+          button
+          routerLink="/detail/{{ todo.id }}"
+          routerDirection="forward"
+        >
           <ion-label>{{ todo.title }}</ion-label>
         </ion-item>
       </ion-list>

@@ -43,6 +43,7 @@ export class TodoFormComponent {
 
     if (this.todoForm.valid && value.title && value.description) {
       const todo: Todo = {
+        id: Date.now().toString(),
         title: value.title as string,
         description: value.description as string,
       };
