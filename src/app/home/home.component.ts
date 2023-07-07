@@ -10,7 +10,7 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
   selector: 'app-home',
   template: `
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar color="primary">
         <ion-title>Todo</ion-title>
       </ion-toolbar>
     </ion-header>
