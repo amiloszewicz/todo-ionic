@@ -17,14 +17,21 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
     <ion-content>
       <app-todo-form (todoSubmitted)="createTodo($event)"></app-todo-form>
       <ion-list>
-        <ion-item
-          *ngFor="let todo of todoService.todos$ | async"
-          button
-          routerLink="/detail/{{ todo.id }}"
-          routerDirection="forward"
-        >
-          <ion-label>{{ todo.title }}</ion-label>
-        </ion-item>
+        <ion-item-sliding *ngFor="let todo of todoService.todos$ | async">
+          <ion-item
+            button
+            routerLink="/detail/{{ todo.id }}"
+            routerDirection="forward"
+          >
+            <ion-label>{{ todo.title }}</ion-label>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger" (click)="deleteTodo(todo.id)">
+              <ion-icon slot="start" name="trash"></ion-icon>
+              Delete
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-list>
     </ion-content>
   `,
@@ -35,6 +42,10 @@ export class HomeComponent {
 
   createTodo(todo: Todo) {
     this.todoService.addTodo(todo);
+  }
+
+  deleteTodo(id: string) {
+    this.todoService.deleteTodo(id);
   }
 }
 @NgModule({

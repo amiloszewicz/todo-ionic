@@ -17,4 +17,11 @@ export class TodoService {
       map((todos) => todos.find((todo) => todo.id === id))
     );
   }
+
+  deleteTodo(id: string) {
+    const currentTodos = this.todos$.value;
+    const updatedTodos = currentTodos.filter((todo) => todo.id !== id);
+
+    this.todos$.next(updatedTodos);
+  }
 }
