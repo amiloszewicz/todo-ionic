@@ -32,10 +32,12 @@ import { Todo } from 'src/app/shared/interfaces/todo';
             [isOpen]="isToastOpen"
             [duration]="5000"
             (didDismiss)="setOpen(false)"
-            message="Todo added :)"
+            message="todo ADDED"
             [buttons]="toastButtons"
-            color="primary"
-          ></ion-toast>
+            color="success"
+            icon="information-circle-outline"
+          >
+          </ion-toast>
         </ion-card-content>
       </ion-card>
     </form>
