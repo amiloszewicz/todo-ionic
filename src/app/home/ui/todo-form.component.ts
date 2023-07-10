@@ -27,7 +27,9 @@ import { Todo } from 'src/app/shared/interfaces/todo';
             formControlName="description"
             placeholder="description..."
           ></ion-input>
-          <ion-button expand="full" type="submit"> Add Todo </ion-button>
+          <ion-button expand="full" shape="round" type="submit">
+            Add Todo
+          </ion-button>
           <ion-toast
             [isOpen]="isToastOpen"
             [duration]="5000"
@@ -45,7 +47,7 @@ import { Todo } from 'src/app/shared/interfaces/todo';
   styles: [
     `
       ion-card-title {
-        padding-left: 20px;
+        padding-left: 15px;
       }
       ion-card-content {
         padding-top: 0;
