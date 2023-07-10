@@ -18,6 +18,15 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
       <app-todo-form (todoSubmitted)="createTodo($event)"></app-todo-form>
       <ion-list>
         <ion-item-sliding *ngFor="let todo of todoService.todos$ | async">
+          <ion-item-options side="start">
+            <ion-item-option
+              color="success"
+              (click)="deleteTodo(todo.id); setDoneToastOpen(true)"
+            >
+              <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
+              DONE
+            </ion-item-option>
+          </ion-item-options>
           <ion-item
             button
             routerLink="/detail/{{ todo.id }}"
@@ -28,7 +37,7 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
           <ion-item-options>
             <ion-item-option
               color="danger"
-              (click)="deleteTodo(todo.id); setOpen(true)"
+              (click)="deleteTodo(todo.id); setDeleteToastOpen(true)"
             >
               <ion-icon slot="start" name="trash"></ion-icon>
               Delete
@@ -37,13 +46,23 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
         </ion-item-sliding>
       </ion-list>
       <ion-toast
-        [isOpen]="isToastOpen"
+        [isOpen]="isDeleteToastOpen"
         [duration]="5000"
-        (didDismiss)="setOpen(false)"
+        (didDismiss)="setDeleteToastOpen(false)"
         message="todo DELETED"
         [buttons]="toastButtons"
         color="danger"
         icon="information-circle-outline"
+      >
+      </ion-toast>
+      <ion-toast
+        [isOpen]="isDoneToastOpen"
+        [duration]="5000"
+        (didDismiss)="setDeleteToastOpen(false)"
+        message="todo DONE"
+        [buttons]="toastButtons"
+        color="success"
+        icon="checkmark-done-circle-outline"
       >
       </ion-toast>
     </ion-content>
@@ -61,7 +80,8 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  isToastOpen = false;
+  isDeleteToastOpen = false;
+  isDoneToastOpen = false;
 
   toastButtons = [
     {
@@ -80,8 +100,12 @@ export class HomeComponent {
     this.todoService.deleteTodo(id);
   }
 
-  setOpen(isOpen: boolean) {
-    this.isToastOpen = isOpen;
+  setDeleteToastOpen(isOpen: boolean) {
+    this.isDeleteToastOpen = isOpen;
+  }
+
+  setDoneToastOpen(isOpen: boolean) {
+    this.isDoneToastOpen = isOpen;
   }
 }
 @NgModule({
