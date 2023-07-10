@@ -26,18 +26,40 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
             <ion-label>{{ todo.title }}</ion-label>
           </ion-item>
           <ion-item-options>
-            <ion-item-option color="danger" (click)="deleteTodo(todo.id)">
+            <ion-item-option
+              color="danger"
+              (click)="deleteTodo(todo.id); setOpen(true)"
+            >
               <ion-icon slot="start" name="trash"></ion-icon>
               Delete
             </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
+      <ion-toast
+        [isOpen]="isToastOpen"
+        [duration]="5000"
+        (didDismiss)="setOpen(false)"
+        message="todo DELETED"
+        [buttons]="toastButtons"
+        color="danger"
+        icon="information-circle-outline"
+      >
+      </ion-toast>
     </ion-content>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
+  isToastOpen = false;
+
+  toastButtons = [
+    {
+      text: 'Dismiss',
+      role: 'cancel',
+    },
+  ];
+
   constructor(public todoService: TodoService) {}
 
   createTodo(todo: Todo) {
@@ -46,6 +68,10 @@ export class HomeComponent {
 
   deleteTodo(id: string) {
     this.todoService.deleteTodo(id);
+  }
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 }
 @NgModule({
