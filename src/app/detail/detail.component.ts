@@ -9,16 +9,17 @@ import { TodoService } from '../shared/data-access/todo.service';
   template: `
     <ng-container *ngIf="todo$ | async as todo">
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar color="primary">
           <ion-title> {{ todo.title }} </ion-title>
-          <ion-buttons>
+          <ion-buttons slot="start">
             <ion-back-button defaultHref="/home"></ion-back-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <h2>{{ todo.title }}</h2>
-        <p>{{ todo.description }}</p>
+        <h2>Title: {{ todo.title }}</h2>
+        <p>description: {{ todo.description }}</p>
+        <p>id: {{ todo.id }}</p>
       </ion-content>
     </ng-container>
   `,
