@@ -48,6 +48,16 @@ import { TodoFormComponentModule } from './ui/todo-form.component';
       </ion-toast>
     </ion-content>
   `,
+  styles: [
+    `
+      ion-toolbar {
+        text-align: center;
+      }
+      ion-list {
+        margin: 10px;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
